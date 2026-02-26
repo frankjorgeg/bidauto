@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { ImageCarousel } from "@/components/image-carousel"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 interface VehicleGalleryProps {
     images: string[]
@@ -46,7 +47,7 @@ export function VehicleGallery({ images, alt }: VehicleGalleryProps) {
                                     : "border-transparent opacity-60 hover:opacity-100"
                             )}
                         >
-                            <img src={img} alt="" className="h-full w-full object-cover" />
+                            <Image src={img} alt="" fill className="object-cover" />
                         </button>
                     ))}
                 </div>

@@ -9,7 +9,7 @@ export default async function ContactPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
                 <div className="space-y-12">
                     <div>
-                        <h1 className="text-5xl font-black tracking-tight mb-6">Let's connect.</h1>
+                        <h1 className="text-5xl font-black tracking-tight mb-6">Let&apos;s connect.</h1>
                         <p className="text-xl text-muted-foreground leading-relaxed">
                             Questions about a specific lot? Need help navigating international customs? Our team is standing by.
                         </p>

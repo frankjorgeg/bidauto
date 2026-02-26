@@ -1,9 +1,6 @@
 import { getSession } from "@/lib/auth-service"
 import { redirect } from "next/navigation"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
 import { SettingsForm } from "./settings-form"
 
 export default async function SettingsPage() {

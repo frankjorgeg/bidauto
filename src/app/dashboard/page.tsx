@@ -2,11 +2,9 @@ import { getSession } from "@/lib/auth-service"
 import { redirect } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Car, Gavel, CheckCircle, ArrowRight, LayoutDashboard } from "lucide-react"
+import { Car, Gavel, CheckCircle } from "lucide-react"
 import { createClient } from "@/lib/supabase/server"
 import { VehicleCard } from "@/components/vehicle-card"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default async function DashboardPage() {
