@@ -14,6 +14,20 @@ import Link from "next/link"
 import { ImageCarousel } from "@/components/image-carousel"
 import { SearchBar } from "@/components/search-bar"
 
+interface AdminVehicle {
+    id: string
+    year: number
+    make: string
+    model: string
+    vin?: string
+    lot_number?: string
+    status: string
+    images?: string[]
+    auction_date?: string
+    current_bid?: number
+    final_price?: number
+}
+
 export default async function AdminPage({ searchParams }: { searchParams: { q?: string } }) {
     const user = await getSession()
 
@@ -32,7 +46,7 @@ export default async function AdminPage({ searchParams }: { searchParams: { q?: 
             throw new Error(`Database error: ${error.message}`)
         }
 
-        const safeVehicles = (vehicles || []).filter(v => {
+        const safeVehicles = ((vehicles || []) as unknown as AdminVehicle[]).filter(v => {
             const q = searchParams.q?.toLowerCase()
             if (!q) return true
             return (
@@ -99,8 +113,7 @@ export default async function AdminPage({ searchParams }: { searchParams: { q?: 
 
                         {safeVehicles.length > 0 ? (
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                                {safeVehicles.map((vehicle: any) => (
+                                {safeVehicles.map((vehicle) => (
                                     <Link key={vehicle.id} href={`/admin/vehicles/${vehicle.id}`}>
                                         <Card className="overflow-hidden hover:border-primary/50 transition-colors group h-full flex flex-col">
                                             <div className="aspect-video bg-muted relative overflow-hidden">
@@ -152,7 +165,7 @@ export default async function AdminPage({ searchParams }: { searchParams: { q?: 
             <div className="container py-20 text-center">
                 <div className="bg-destructive/10 p-10 rounded-xl border-2 border-destructive inline-block">
                     <h1 className="text-2xl font-bold text-destructive">Dashboard Load Error</h1>
-                    <p className="text-muted-foreground mt-2">{(e as any).message}</p>
+                    <p className="text-muted-foreground mt-2">{e instanceof Error ? e.message : "Internal Error"}</p>
                     <Link href="/admin">
                         <Button className="mt-6">Refresh Dashboard</Button>
                     </Link>

@@ -3,7 +3,10 @@
 import { createAdminClient } from "@/lib/supabase/admin"
 import { revalidatePath } from "next/cache"
 
-export async function updateVehicleAction(formData: FormData) {
+export type ActionResult = { success: true; error?: never } | { success: false; error: string }
+
+
+export async function updateVehicleAction(formData: FormData): Promise<ActionResult> {
     const supabase = createAdminClient()
 
     const id = formData.get("id") as string
@@ -53,7 +56,7 @@ export async function updateVehicleAction(formData: FormData) {
 
     if (error) {
         console.error("UPDATE ERROR:", error)
-        return { error: error.message }
+        return { success: false, error: error.message }
     }
 
     console.log("UPDATE SUCCESS:", data?.length, "rows updated")
@@ -65,7 +68,7 @@ export async function updateVehicleAction(formData: FormData) {
     return { success: true }
 }
 
-export async function createVehicleAction(formData: FormData) {
+export async function createVehicleAction(formData: FormData): Promise<ActionResult> {
     const supabase = createAdminClient()
 
     const year = parseInt(formData.get("year") as string)
@@ -111,7 +114,7 @@ export async function createVehicleAction(formData: FormData) {
 
     if (error) {
         console.error("CREATE ERROR:", error)
-        return { error: error.message }
+        return { success: false, error: error.message }
     }
 
     revalidatePath("/admin")
@@ -120,7 +123,7 @@ export async function createVehicleAction(formData: FormData) {
     return { success: true }
 }
 
-export async function deleteVehicleAction(id: string) {
+export async function deleteVehicleAction(id: string): Promise<ActionResult> {
     const supabase = createAdminClient()
     const { error } = await supabase.from("vehicles").delete().eq("id", id)
     if (error) return { success: false, error: error.message }
@@ -128,7 +131,7 @@ export async function deleteVehicleAction(id: string) {
     return { success: true }
 }
 
-export async function toggleVisibilityAction(id: string, published: boolean) {
+export async function toggleVisibilityAction(id: string, published: boolean): Promise<ActionResult> {
     const supabase = createAdminClient()
     const { error } = await supabase
         .from("vehicles")
