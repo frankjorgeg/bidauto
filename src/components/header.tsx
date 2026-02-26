@@ -81,6 +81,14 @@ export function Header({ settings, user }: HeaderProps) {
                 <div className="flex items-center gap-4">
                     {user ? (
                         <div className="hidden md:flex items-center gap-3">
+                            {!isProtected && (
+                                <Link href={user.role === "admin" ? "/admin" : "/dashboard"}>
+                                    <Button size="sm" className="gap-2">
+                                        <Settings className="h-4 w-4" />
+                                        {user.role === "admin" ? "Admin Panel" : "Dashboard"}
+                                    </Button>
+                                </Link>
+                            )}
                             <span className="text-sm text-muted-foreground">
                                 {user.name}
                             </span>
@@ -127,9 +135,19 @@ export function Header({ settings, user }: HeaderProps) {
                         ))}
                         <hr className="my-2" />
                         {user ? (
-                            <Button variant="outline" className="w-full gap-2" onClick={() => { handleLogout(); setMobileMenuOpen(false) }}>
-                                <LogOut className="h-4 w-4" /> Log Out
-                            </Button>
+                            <div className="flex flex-col gap-3">
+                                {!isProtected && (
+                                    <Link href={user.role === "admin" ? "/admin" : "/dashboard"} onClick={() => setMobileMenuOpen(false)}>
+                                        <Button className="w-full gap-2">
+                                            <Settings className="h-4 w-4" />
+                                            {user.role === "admin" ? "Admin Panel" : "Dashboard"}
+                                        </Button>
+                                    </Link>
+                                )}
+                                <Button variant="outline" className="w-full gap-2" onClick={() => { handleLogout(); setMobileMenuOpen(false) }}>
+                                    <LogOut className="h-4 w-4" /> Log Out
+                                </Button>
+                            </div>
                         ) : (
                             <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
                                 <Button variant="outline" className="w-full">Sign In</Button>
