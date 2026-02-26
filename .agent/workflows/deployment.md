@@ -6,17 +6,22 @@ description: How to deploy the BidAutoDirect application online using Vercel
 
 Follow these steps to deploy your application to Vercel and connect it to your Supabase database.
 
-## 1. Push Code to GitHub
+## 1. Create a GitHub Repository
 
-First, make sure all your changes are committed and pushed to a GitHub repository.
+1.  Go to [GitHub](https://github.com/new) and create a new **public** or **private** repository.
+2.  Do **NOT** initialize it with a README, license, or .gitignore (since you already have them locally).
+
+## 2. Link Local Code to GitHub
+
+Copy the URL of your new repository and run these commands in your terminal:
 
 ```bash
-git add .
-git commit -m "Final improvements for deployment"
-git push origin main
+git remote add origin https://github.com/TU_USUARIO/TU_REPOSITORIO.git
+git branch -M main
+git push -u origin main
 ```
 
-## 2. Connect to Vercel
+## 3. Connect to Vercel
 
 1.  Log in to [Vercel](https://vercel.com).
 2.  Click **"Add New..."** and then **"Project"**.

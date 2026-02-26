@@ -1,5 +1,4 @@
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
 import { Globe, ShieldCheck, Zap, Truck, Search, Gavel } from "lucide-react"
 
 export default function HowItWorksPage() {
@@ -55,7 +54,7 @@ export default function HowItWorksPage() {
                     <Badge variant="outline" className="mb-4">Ecosystem Overview</Badge>
                     <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-6">How BidAutoDirect Works.</h1>
                     <p className="text-xl text-muted-foreground leading-relaxed">
-                        We've built a world-class infrastructure to simplify the complexity of U.S. vehicle auctions and global logistics.
+                        We&apos;ve built a world-class infrastructure to simplify the complexity of U.S. vehicle auctions and global logistics.
                     </p>
                 </div>
 
@@ -63,7 +62,7 @@ export default function HowItWorksPage() {
                     {/* Visual Connector Line for Desktop */}
                     <div className="absolute left-8 top-10 bottom-10 w-px bg-border hidden md:block" />
 
-                    {steps.map((step, index) => (
+                    {steps.map((step) => (
                         <div key={step.title} className="flex flex-col md:flex-row gap-8 relative">
                             <div className={`shrink-0 z-10 mx-auto md:mx-0 flex h-16 w-16 items-center justify-center rounded-2xl ${step.bg} ${step.color} shadow-lg ring-4 ring-background`}>
                                 <step.icon className="h-8 w-8" />

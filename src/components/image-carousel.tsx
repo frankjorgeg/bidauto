@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
+import Image from "next/image"
 import { ChevronLeft, ChevronRight, ImageIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -47,10 +48,12 @@ export function ImageCarousel({ images, alt, currentExternal, onChange, classNam
 
     return (
         <div className={cn("relative w-full h-full group select-none", className)}>
-            <img
+            <Image
                 src={images[current]}
                 alt={alt}
-                className="h-full w-full object-cover transition-all duration-500 ease-in-out"
+                fill
+                className="object-cover transition-all duration-500 ease-in-out"
+                priority={current === 0}
             />
 
             {images.length > 1 && (

@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { ArrowRight, Globe, ShieldCheck, Zap } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 
 export default async function Home() {
   const steps = [
@@ -29,10 +30,12 @@ export default async function Home() {
         {/* Background Image Overlay */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/80 z-10" />
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2070&auto=format&fit=crop"
             alt="Premium Porsche"
-            className="h-full w-full object-cover opacity-60 scale-105"
+            fill
+            className="object-cover opacity-60 scale-105"
+            priority
           />
         </div>
 

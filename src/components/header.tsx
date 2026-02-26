@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { Car, Menu, X, User, LogOut, LayoutDashboard, Settings, ChevronLeft } from "lucide-react"
+import { Car, Menu, X, User, LogOut, Settings } from "lucide-react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"

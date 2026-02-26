@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Timer, Calendar, MapPin } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { formatCurrency } from "@/lib/utils"
 
 interface Vehicle {
@@ -35,10 +36,11 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
                     {vehicle.status}
                 </Badge>
                 {vehicle.images?.[0] ? (
-                    <img
+                    <Image
                         src={vehicle.images[0]}
                         alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
-                        className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                 ) : (
                     <div className="absolute inset-0 flex items-center justify-center text-white/10 font-bold">
