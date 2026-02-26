@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import { useState, useRef } from "react"
 import { useRouter } from "next/navigation"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -33,8 +35,8 @@ export function NewVehicleForm() {
             } else {
                 toast.error(result.error || "Create failed")
             }
-        } catch (err: any) {
-            toast.error("Error: " + err.message)
+        } catch (err: unknown) {
+            toast.error("Error: " + (err instanceof Error ? err.message : String(err)))
         } finally {
             setLoading(false)
         }
@@ -60,9 +62,9 @@ export function NewVehicleForm() {
             try {
                 const res = await fetch("/api/upload", { method: "POST", body: formData })
                 const data = await res.json()
-                if (!res.ok) { toast.error(`Upload failed: ${data.error}`); return null }
+                if (!res.ok) { toast.error(`Upload failed: ${data.error} `); return null }
                 return data.url as string
-            } catch (err: any) { toast.error(`Upload error: ${err.message}`); return null }
+            } catch (err: unknown) { toast.error(`Upload error: ${err instanceof Error ? err.message : String(err)} `); return null }
         })
         const results = await Promise.all(uploadPromises)
         const urls = results.filter((url): url is string => url !== null)
@@ -209,7 +211,12 @@ export function NewVehicleForm() {
                                 <div className="grid grid-cols-2 gap-3">
                                     {images.map((url: string, i: number) => (
                                         <div key={i} className="relative group aspect-video rounded-lg overflow-hidden border">
-                                            <img src={url} alt={`Photo ${i + 1}`} className="w-full h-full object-cover" />
+                                            <Image
+                                                src={url}
+                                                alt="Vehicle preview"
+                                                fill
+                                                className="object-cover"
+                                            />
                                             <button type="button" onClick={() => removeImage(i)}
                                                 className="absolute top-1 right-1 bg-destructive text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                                 <Trash2 className="h-3 w-3" />

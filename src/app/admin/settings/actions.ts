@@ -40,8 +40,7 @@ export async function updateSettingsAction(formData: FormData) {
         revalidatePath("/")
         revalidatePath("/admin/settings")
         return { success: true }
-    } catch (err: any) {
-        console.error("Error saving settings:", err)
-        return { error: "Failed to save settings: " + err.message }
+    } catch (err: unknown) {
+        return { success: false, error: err instanceof Error ? err.message : String(err) }
     }
 }

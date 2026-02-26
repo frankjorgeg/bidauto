@@ -8,7 +8,7 @@ export default function AboutPage() {
                     <Badge variant="secondary">Founded 2024</Badge>
                     <h1 className="text-5xl font-black tracking-tight md:text-7xl">Mission Driven Export Solutions.</h1>
                     <p className="text-xl text-muted-foreground leading-relaxed italic">
-                        "Removing the friction between the World's most valuable vehicle inventory and Global demand."
+                        &quot;Removing the friction between the World&apos;s most valuable vehicle inventory and Global demand.&quot;
                     </p>
                 </div>
 
@@ -23,7 +23,7 @@ export default function AboutPage() {
                     <ul className="grid gap-4 list-none pl-0">
                         <li className="p-6 bg-muted/30 rounded-2xl border border-muted/50">
                             <strong className="text-foreground block mb-2 text-xl">Integrity First</strong>
-                            We provide unvarnished condition reports. If a vehicle isn't a good investment, we tell you—even if it means losing a sale.
+                            We provide unvarnished condition reports. If a vehicle isn&apos;t a good investment, we tell you—even if it means losing a sale.
                         </li>
                         <li className="p-6 bg-muted/30 rounded-2xl border border-muted/50">
                             <strong className="text-foreground block mb-2 text-xl">Operational Excellence</strong>

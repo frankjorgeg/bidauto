@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react"
 import { useRouter } from "next/navigation"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -12,8 +13,38 @@ import { Trash2, Loader2, Save, ArrowLeft, Plus, Upload } from "lucide-react"
 import { updateVehicleAction, deleteVehicleAction } from "../../actions"
 import Link from "next/link"
 
+interface Vehicle {
+    id: string
+    year: number
+    make: string
+    model: string
+    status: string
+    vin?: string
+    trim?: string
+    mileage?: number
+    title_status?: string
+    damage_type?: string
+    engine?: string
+    transmission?: string
+    drivetrain?: string
+    fuel_type?: string
+    keys?: boolean
+    running_condition?: string
+    auction_house?: string
+    lot_number?: string
+    auction_date?: string
+    location?: string
+    current_bid?: number
+    final_price?: number
+    est_repair_cost?: number
+    est_market_value?: number
+    shipping_estimate?: number
+    destination?: string
+    images?: string[]
+}
+
 interface VehicleEditFormProps {
-    vehicle: Record<string, any>
+    vehicle: Vehicle
 }
 
 export function VehicleEditForm({ vehicle }: VehicleEditFormProps) {
@@ -40,8 +71,8 @@ export function VehicleEditForm({ vehicle }: VehicleEditFormProps) {
             } else {
                 toast.error(result.error || "Update failed")
             }
-        } catch (err: any) {
-            toast.error("Error: " + err.message)
+        } catch (err: unknown) {
+            toast.error("Error: " + (err instanceof Error ? err.message : String(err)))
         } finally {
             setLoading(false)
         }
@@ -82,7 +113,7 @@ export function VehicleEditForm({ vehicle }: VehicleEditFormProps) {
                 const data = await res.json()
                 if (!res.ok) { toast.error(`Upload failed: ${data.error}`); return null }
                 return data.url as string
-            } catch (err: any) { toast.error(`Upload error: ${err.message}`); return null }
+            } catch (err: unknown) { toast.error(`Upload error: ${err instanceof Error ? err.message : String(err)}`); return null }
         })
         const results = await Promise.all(uploadPromises)
         const urls = results.filter((url): url is string => url !== null)
@@ -94,7 +125,7 @@ export function VehicleEditForm({ vehicle }: VehicleEditFormProps) {
         if (fileInputRef.current) fileInputRef.current.value = ""
     }
 
-    const fmtDate = (d: string | null) => d ? new Date(d).toISOString().split("T")[0] : ""
+    const fmtDate = (d: string | null | undefined) => d ? new Date(d).toISOString().split("T")[0] : ""
 
     return (
         <div className="space-y-6 max-w-5xl mx-auto">
@@ -325,7 +356,12 @@ export function VehicleEditForm({ vehicle }: VehicleEditFormProps) {
                                 <div className="grid grid-cols-2 gap-3">
                                     {images.map((url: string, i: number) => (
                                         <div key={i} className="relative group aspect-video rounded-lg overflow-hidden border">
-                                            <img src={url} alt={`Photo ${i + 1}`} className="w-full h-full object-cover" />
+                                            <Image
+                                                src={url}
+                                                alt={`Photo ${i + 1}`}
+                                                fill
+                                                className="object-cover"
+                                            />
                                             <button type="button" onClick={() => removeImage(i)}
                                                 className="absolute top-1 right-1 bg-destructive text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                                 <Trash2 className="h-3 w-3" />

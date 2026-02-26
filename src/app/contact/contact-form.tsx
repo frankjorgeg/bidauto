@@ -65,8 +65,6 @@ export function ContactForm() {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { id, value } = e.target
-        const fieldName = id.replace("-", "") as keyof FormState
-
         // Map kabab-case to camelCase mapping for ID
         const fieldMap: Record<string, keyof FormState> = {
             "first-name": "firstName",
